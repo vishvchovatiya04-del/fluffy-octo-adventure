@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swad Kitchen | स्वाद किचन - Real Taste of India</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Rozha+One&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            red: '#D90429',
+                            darkred: '#EF233C',
+                            amber: '#FFB703',
+                            bg: '#FFF8F0',
+                            dark: '#2B2D42'
+                        }
+                    },
+                    fontFamily: {
+                        hindi: ['Rozha One', 'serif'],
+                        sans: ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .cart-slide { transition: transform 0.3s ease-in-out; }
+        .glass-nav { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); }
+        body { font-family: 'Poppins', sans-serif; background-color: #FFF8F0; }
+    </style>
+</head>
+<body class="text-gray-800 antialiased flex flex-col min-h-screen">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-brand-red text-white text-xs sm:text-sm py-2 px-4 text-center font-medium">
+        🔥 <span class="font-bold">Special Offer:</span> Use Code <span class="bg-amber-400 text-slate-900 px-2 py-0.5 rounded font-bold">SWAD20</span> for 20% OFF on Orders above ₹399! Free Home Delivery 🚀
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 glass-nav shadow-sm border-b border-orange-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center space-x-2">
+                <div class="w-12 h-12 bg-gradient-to-tr from-brand-red to-brand-amber rounded-full flex items-center justify-center text-white shadow-md">
+                    <i class="fa-solid fa-utensils text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold tracking-tight text-brand-dark leading-none">Swad <span class="text-brand-red">Kitchen</span></h1>
+                    <span class="text-xs font-semibold text-brand-red tracking-wide font-hindi">स्वाद किचन • Desi Zaiqa</span>
+                </div>
+            </a>
+
+            <!-- Search Bar (Desktop) -->
+            <div class="hidden md:flex flex-1 max-w-md mx-8 relative">
+                <input type="text" id="searchInput" onkeyup="filterMenu()" placeholder="Search Paneer Tikka, Biryani, Pizza..." 
+                    class="w-full pl-10 pr-4 py-2.5 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-red text-sm bg-gray-50/50">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-gray-400 text-sm"></i>
+            </div>
+
+            <!-- Navigation Actions -->
+            <div class="flex items-center space-x-4">
+                <a href="#menu" class="hidden sm:inline-block font-medium text-gray-700 hover:text-brand-red transition">Menu</a>
+                <a href="#about" class="hidden sm:inline-block font-medium text-gray-700 hover:text-brand-red transition">About</a>
+                <a href="#contact" class="hidden sm:inline-block font-medium text-gray-700 hover:text-brand-red transition">Contact</a>
+                
+                <!-- Cart Button -->
+                <button onclick="toggleCart()" class="relative bg-brand-red hover:bg-red-700 text-white font-medium px-4 py-2.5 rounded-full shadow-md flex items-center space-x-2 transition transform active:scale-95">
+                    <i class="fa-solid fa-basket-shopping text-lg"></i>
+                    <span class="hidden sm:inline">Cart</span>
+                    <span id="cartCount" class="bg-amber-400 text-slate-900 font-bold text-xs w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-b from-orange-50 to-brand-bg py-12 md:py-20 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <span class="inline-block bg-orange-100 text-brand-red font-semibold text-xs px-3 py-1 rounded-full mb-4">
+                    🌶️ Authentic Indian Flavors & Fast Bites
+                </span>
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-brand-dark leading-tight mb-4">
+                    Ghar Jaisa <span class="text-brand-red underline decoration-amber-400 decoration-wavy">Swad</span>, Har Bite Mein Roz!
+                </h2>
+                <p class="text-gray-600 text-base md:text-lg mb-8">
+                    Fresh ingredients, secret spices, and lightning-fast delivery. Enjoy handcrafted Biryani, Cheesy Pizzas, Smoky Kebabs & Street Food right at your doorstep.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#menu" class="bg-brand-red hover:bg-red-700 text-white font-bold px-8 py-3.5 rounded-full shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5">
+                        Order Now <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </a>
+                    <a href="tel:+919876543210" class="border-2 border-brand-dark text-brand-dark hover:bg-brand-dark hover:text-white font-bold px-6 py-3.5 rounded-full transition">
+                        <i class="fa-solid fa-phone mr-2"></i> Call for Catering
+                    </a>
+                </div>
+                <!-- Trust Badges -->
+                <div class="mt-8 flex items-center space-x-6 text-xs text-gray-500 font-medium">
+                    <span class="flex items-center"><i class="fa-solid fa-shield-halved text-green-600 text-base mr-1.5"></i> 100% Veg & Pure</span>
+                    <span class="flex items-center"><i class="fa-solid fa-bolt text-amber-500 text-base mr-1.5"></i> 30 Min Delivery</span>
+                    <span class="flex items-center"><i class="fa-solid fa-star text-amber-400 text-base mr-1.5"></i> 4.8+ Rated</span>
+                </div>
+            </div>
+            
+            <!-- Hero Image Banner -->
+            <div class="relative">
+                <div class="w-full h-80 sm:h-96 rounded-3xl overflow-hidden shadow-2xl relative">
+                    <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80" alt="Delicious Indian Food" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-4 left-4 right-4 text-white p-4 rounded-xl backdrop-blur-md bg-white/20 border border-white/20">
+                        <p class="text-xs uppercase font-bold text-amber-300">Today's Special</p>
+                        <p class="text-lg font-bold">Special Paneer Dum Biryani + Drink @ ₹249</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-1">
+        <div class="text-center max-w-2xl mx-auto mb-10">
+            <h2 class="text-3xl font-extrabold text-brand-dark">Explore Our Delicious Menu</h2>
+            <p class="text-gray-500 text-sm mt-2">Select your favorite dish and get hot meals delivered fresh!</p>
+        </div>
+
+        <!-- Filter Category Tabs -->
+        <div class="flex overflow-x-auto no-scrollbar space-x-3 pb-4 mb-8 justify-start sm:justify-center" id="categoryContainer">
+            <button onclick="filterCategory('all')" class="cat-btn active bg-brand-red text-white px-5 py-2 rounded-full text-sm font-semibold whitespace-nowrap shadow transition">All Dishes</button>
+            <button onclick="filterCategory('starter')" class="cat-btn bg-white text-gray-700 hover:bg-orange-100 px-5 py-2 rounded-full text-sm font-semibold whitespace-nowrap shadow-sm border border-gray-200 transition">Starters & Snacks</button>
+            <button onclick="filterCategory('main')" class="cat-btn bg-white text-gray-700 hover:bg-orange-100 px-5 py-2 rounded-full text-sm font-semibold whitespace-nowrap shadow-sm border border-gray-200 transition">Main Course</button>
+            <button onclick="filterCategory('biryani')" class="cat-btn bg-white text-gray-700 hover:bg-orange-100 px-5 py-2 rounded-full text-sm font-semibold whitespace-nowrap shadow-sm border border-gray-200 transition">Biryani & Rice</button>
+            <button onclick="filterCategory('pizza')" class="cat-btn bg-white text-gray-700 hover:bg-orange-100 px-5 py-2 rounded-full text-sm font-semibold whitespace-nowrap shadow-sm border border-gray-200 transition">Pizzas & Burgers</button>
+            <button onclick="filterCategory('beverage')" class="cat-btn bg-white text-gray-700 hover:bg-orange-100 px-5 py-2 rounded-full text-sm font-semibold whitespace-nowrap shadow-sm border border-gray-200 transition">Beverages & Desserts</button>
+        </div>
+
+        <!-- Food Grid -->
+        <div id="foodGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Cards will be populated by JS -->
+        </div>
+    </section>
+
+    <!-- Contact & Store Location Info -->
+    <section id="contact" class="bg-white py-16 border-t border-orange-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-3 gap-8">
+            <div class="space-y-4">
+                <h3 class="text-xl font-bold text-brand-dark">Swad Kitchen Junagadh</h3>
+                <p class="text-sm text-gray-600"><i class="fa-solid fa-location-dot text-brand-red mr-2"></i> Main Road, Near Bus Station, Junagadh, Gujarat 362001</p>
+                <p class="text-sm text-gray-600"><i class="fa-solid fa-phone text-brand-red mr-2"></i> +91 98765 43210 / +91 91234 56789</p>
+                <p class="text-sm text-gray-600"><i class="fa-solid fa-envelope text-brand-red mr-2"></i> order@swadkitchen.com</p>
+                <p class="text-sm text-gray-600"><i class="fa-solid fa-clock text-brand-red mr-2"></i> Open Daily: 11:00 AM – 11:30 PM</p>
+            </div>
+            
+            <!-- Quick Inquiry Form -->
+            <div class="bg-orange-50 p-6 rounded-2xl border border-orange-100">
+                <h4 class="font-bold text-brand-dark mb-4">Send Us a Message</h4>
+                <form onsubmit="handleInquiry(event)" class="space-y-3">
+                    <input type="text" placeholder="Your Name" required class="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 focus:outline-none focus:ring-1 focus:ring-brand-red">
+                    <input type="tel" placeholder="Phone Number" required class="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 focus:outline-none focus:ring-1 focus:ring-brand-red">
+                    <textarea placeholder="Special catering or party booking inquiry..." rows="3" class="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 focus:outline-none focus:ring-1 focus:ring-brand-red"></textarea>
+                    <button type="submit" class="w-full bg-brand-dark text-white font-semibold py-2 rounded-lg text-sm hover:bg-black transition">Submit Request</button>
+                </form>
+            </div>
+
+            <!-- Map View Placeholder -->
+            <div class="rounded-2xl overflow-hidden bg-gray-100 h-64 border border-gray-200 flex items-center justify-center relative">
+                <iframe class="w-full h-full border-0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d118833.64505501865!2d70.3804822!3d21.5222049!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3958018c6a277717%3A0x7d28628b7e2a9a8c!2sJunagadh%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1690000000000!5m2!1sen!2sin" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-gray-400 py-8 text-center text-sm border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>© 2026 Swad Kitchen (स्वाद किचन). All Rights Reserved. Crafted for food lovers.</p>
+        </div>
+    </footer>
+
+    <!-- Cart Drawer (Slide In) -->
+    <div id="cartModal" class="fixed inset-0 z-50 hidden">
+        <!-- Backdrop -->
+        <div onclick="toggleCart()" class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+        <!-- Drawer Panel -->
+        <div class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-white shadow-2xl flex flex-col justify-between transform transition-transform duration-300">
+            <!-- Header -->
+            <div class="p-4 border-b border-gray-100 flex items-center justify-between bg-orange-50">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-basket-shopping text-brand-red text-xl"></i>
+                    <h3 class="font-bold text-lg text-brand-dark">Your Food Basket</h3>
+                </div>
+                <button onclick="toggleCart()" class="text-gray-400 hover:text-gray-600 p-2 text-xl">&times;</button>
+            </div>
+
+            <!-- Cart Items List -->
+            <div id="cartItemsContainer" class="p-4 flex-1 overflow-y-auto space-y-4">
+                <!-- Cart items populated by JS -->
+            </div>
+
+            <!-- Cart Summary & Checkout -->
+            <div class="p-4 border-t border-gray-100 bg-gray-50 space-y-3">
+                <!-- Coupon Input -->
+                <div class="flex space-x-2">
+                    <input type="text" id="couponCode" placeholder="Promo code (e.g. SWAD20)" class="uppercase px-3 py-2 text-xs border border-gray-200 rounded flex-1 focus:outline-none">
+                    <button onclick="applyDiscount()" class="bg-brand-dark text-white text-xs font-semibold px-4 py-2 rounded">Apply</button>
+                </div>
+                <div id="discountMsg" class="text-xs text-green-600 hidden font-medium"></div>
+
+                <!-- Price Breakdown -->
+                <div class="space-y-1 text-xs text-gray-600">
+                    <div class="flex justify-between"><span>Subtotal:</span><span id="subtotalPrice">₹0</span></div>
+                    <div class="flex justify-between"><span>Discount:</span><span id="discountPrice" class="text-green-600">-₹0</span></div>
+                    <div class="flex justify-between"><span>Delivery Fee:</span><span class="text-green-600">FREE</span></div>
+                    <div class="flex justify-between text-base font-bold text-brand-dark pt-2 border-t">
+                        <span>Total Payable:</span>
+                        <span id="totalPrice" class="text-brand-red">₹0</span>
+                    </div>
+                </div>
+
+                <!-- Checkout Button -->
+                <button onclick="checkoutOrder()" class="w-full bg-brand-red hover:bg-red-700 text-white font-bold py-3 rounded-xl shadow-lg transition flex items-center justify-center space-x-2">
+                    <span>Proceed to WhatsApp Order</span>
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Code -->
+    <script>
+        const menuData = [
+            { id: 1, name: 'Paneer Butter Masala', category: 'main', price: 220, rating: 4.8, img: 'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=400&q=80', desc: 'Rich, creamy cottage cheese gravy cooked in cashew butter tomato sauce.' },
+            { id: 2, name: 'Special Veg Dum Biryani', category: 'biryani', price: 190, rating: 4.9, img: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=400&q=80', desc: 'Aromatic basmati rice layered with fresh spices & slow cooked in handi.' },
+            { id: 3, name: 'Crispy Veg Cheeseburger', category: 'pizza', price: 110, rating: 4.5, img: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=400&q=80', desc: 'Golden potato patty with melted cheese, lettuce, and secret garlic mayo.' },
+            { id: 4, name: 'Farmhouse Loaded Pizza (10")', category: 'pizza', price: 299, rating: 4.7, img: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=400&q=80', desc: 'Topped with capsicum, onion, sweet corn, paneer & 100% mozzarella.' },
+            { id: 5, name: 'Tandoori Paneer Tikka (8 Pcs)', category: 'starter', price: 240, rating: 4.9, img: 'https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=400&q=80', desc: 'Charcoal grilled marinated cottage cheese cubes with spicy mint chutney.' },
+            { id: 6, name: 'Dal Tadka Special + Butter Roti', category: 'main', price: 160, rating: 4.6, img: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=400&q=80', desc: 'Yellow lentils tempered with ghee, garlic, hing & dry red chilies.' },
+            { id: 7, name: 'Mango Lassi (Chilled)', category: 'beverage', price: 70, rating: 4.9, img: 'https://images.unsplash.com/photo-1571006682860-99933550e26b?auto=format&fit=crop&w=400&q=80', desc: 'Thick, creamy yogurt drink blended with Alphonso mango pulp.' },
+            { id: 8, name: 'Gulab Jamun with Ice Cream', category: 'beverage', price: 90, rating: 4.8, img: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=400&q=80', desc: 'Warm soft gulab jamuns served with a scoop of vanilla ice cream.' }
+        ];
+
+        let cart = [];
+        let discountPercent = 0;
+
+        function renderMenu(items) {
+            const container = document.getElementById('foodGrid');
+            container.innerHTML = '';
+            
+            if (items.length === 0) {
+                container.innerHTML = `<div class="col-span-full text-center py-12 text-gray-400">No food items found matching your search.</div>`;
+                return;
+            }
+
+            items.forEach(item => {
+                container.innerHTML += `
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-44 overflow-hidden">
+                                <img src="${item.img}" alt="${item.name}" class="w-full h-full object-cover transform hover:scale-105 transition duration-500">
+                                <span class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-xs font-bold px-2.5 py-1 rounded-full text-amber-600 shadow-sm">
+                                    <i class="fa-solid fa-star text-amber-400"></i> ${item.rating}
+                                </span>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-bold text-gray-800 text-lg leading-snug">${item.name}</h3>
+                                <p class="text-gray-500 text-xs mt-1 line-clamp-2">${item.desc}</p>
+                            </div>
+                        </div>
+                        <div class="p-4 pt-0 flex items-center justify-between border-t border-gray-50 mt-2">
+                            <span class="text-xl font-extrabold text-brand-dark">₹${item.price}</span>
+                            <button onclick="addToCart(${item.id})" class="bg-brand-red hover:bg-red-700 text-white font-medium text-xs px-4 py-2 rounded-lg transition active:scale-95 shadow">
+                                + Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function filterCategory(cat) {
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-red', 'text-white');
+                btn.classList.add('bg-white', 'text-gray-700');
+            });
+            event.target.classList.remove('bg-white', 'text-gray-700');
+            event.target.classList.add('bg-brand-red', 'text-white');
+
+            if(cat === 'all') renderMenu(menuData);
+            else renderMenu(menuData.filter(i => i.category === cat));
+        }
+
+        function filterMenu() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = menuData.filter(i => i.name.toLowerCase().includes(query) || i.desc.toLowerCase().includes(query));
+            renderMenu(filtered);
+        }
+
+        function addToCart(id) {
+            const existing = cart.find(i => i.id === id);
+            if(existing) {
+                existing.qty++;
+            } else {
+                const item = menuData.find(i => i.id === id);
+                cart.push({ ...item, qty: 1 });
+            }
+            updateCartUI();
+        }
+
+        function updateQty(id, change) {
+            const item = cart.find(i => i.id === id);
+            if(item) {
+                item.qty += change;
+                if(item.qty <= 0) cart = cart.filter(i => i.id !== id);
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const countElem = document.getElementById('cartCount');
+            const container = document.getElementById('cartItemsContainer');
+            
+            const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+            countElem.innerText = totalQty;
+
+            container.innerHTML = '';
+            if(cart.length === 0) {
+                container.innerHTML = `<div class="text-center py-12 text-gray-400">Your basket is empty. Add some tasty food!</div>`;
+            } else {
+                cart.forEach(item => {
+                    container.innerHTML += `
+                        <div class="flex items-center justify-between border-b border-gray-100 pb-3">
+                            <div class="flex items-center space-x-3">
+                                <img src="${item.img}" class="w-12 h-12 rounded-lg object-cover">
+                                <div>
+                                    <h4 class="font-semibold text-xs text-gray-800">${item.name}</h4>
+                                    <span class="text-xs text-gray-500 font-bold">₹${item.price} x ${item.qty}</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2 bg-gray-100 rounded-lg px-2 py-1">
+                                <button onclick="updateQty(${item.id}, -1)" class="text-gray-500 px-1.5 font-bold text-xs">-</button>
+                                <span class="text-xs font-bold">${item.qty}</span>
+                                <button onclick="updateQty(${item.id}, 1)" class="text-gray-500 px-1.5 font-bold text-xs">+</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const discount = (subtotal * discountPercent) / 100;
+            const total = subtotal - discount;
+
+            document.getElementById('subtotalPrice').innerText = `₹${subtotal}`;
+            document.getElementById('discountPrice').innerText = `-₹${discount}`;
+            document.getElementById('totalPrice').innerText = `₹${total}`;
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cartModal');
+            modal.classList.toggle('hidden');
+        }
+
+        function applyDiscount() {
+            const code = document.getElementById('couponCode').value.trim().toUpperCase();
+            const msg = document.getElementById('discountMsg');
+            if(code === 'SWAD20') {
+                discountPercent = 20;
+                msg.innerText = "Coupon 'SWAD20' applied! 20% OFF";
+                msg.classList.remove('hidden');
+            } else {
+                alert('Invalid Coupon Code. Try SWAD20');
+            }
+            updateCartUI();
+        }
+
+        function checkoutOrder() {
+            if(cart.length === 0) {
+                alert('Please add items to your cart first!');
+                return;
+            }
+            let text = "Hello Swad Kitchen! I want to order:\n";
+            cart.forEach(i => {
+                text += `• ${i.name} (Qty: ${i.qty}) - ₹${i.price * i.qty}\n`;
+            });
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const discount = (subtotal * discountPercent) / 100;
+            const total = subtotal - discount;
+            text += `\nTotal Amount: ₹${total}`;
+
+            const phone = "919876543210";
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        function handleInquiry(e) {
+            e.preventDefault();
+            alert('Dhanyawad! Aapka inquiry receive ho gaya hai. Swad Kitchen team jald hi contact karegi.');
+        }
+
+        // Initialize Menu on load
+        renderMenu(menuData);
+    </script>
+</body>
+</html>
